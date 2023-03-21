@@ -91,14 +91,8 @@ export default function Sidebar({
 
 	return (
 		<>
-			<BrowserView>
-				<browserSidebar close={close} open={open} ref={ref} />
-			</BrowserView>
-
-			<MobileView>
 				<MobileSidebar close={close} open={open} ref={ref} />
-			</MobileView>
-
+		
 		</>
 	)
 

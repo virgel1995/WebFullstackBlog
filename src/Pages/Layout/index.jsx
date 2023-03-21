@@ -6,7 +6,7 @@ Button,useDisclosure
 import { Seo } from "@/Components"
 import { Sidebar , History, Navbar, Footer, Loader} from "@/Ui"
 
-export default function Layout() {
+export default function Layout({children}) {
 const { isOpen, onOpen, onClose } = useDisclosure()
 	  const btnRef = React.useRef()
 	
@@ -15,11 +15,8 @@ const { isOpen, onOpen, onClose } = useDisclosure()
 			<Seo />
 			<Navbar open= {onOpen} refe= {btnRef} />
  			<Sidebar close= {onClose} open= {isOpen}/>
-			<div>
-				
 				<History />
-<Outlet />
-			</div>
+				{children}
 			{/*	<Loader />*/}
 			<Footer />
 		</>

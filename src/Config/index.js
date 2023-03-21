@@ -1,9 +1,6 @@
 export const websiteUrl =  "https://WebFullstackBlog.virgel1995.repl.co";
-export const githubBaseUrl = "https://github.com/virgel1995/react-blog";
-
-export const API = "https://webfull-stack-courses.herokuapp.com"
-
-
+export const githubBaseUrl = "https://github.com/virgel1995/WebFullstackBlog";
+import logo from "@/Assets/img/developer.gif"
 export const siteConfig = {
   repo: {
     url: githubBaseUrl,
@@ -23,11 +20,11 @@ export const siteConfig = {
       url: websiteUrl,
       type: "website",
       image: {
-        url: `${websiteUrl}/static/assets/devloper.gif`,
+        url: logo,
         width: 1240,
         height: 1080,
         alt: "Blog for Whatsapp group for web development",
-        type: "image/png",
+        type: "image/gif",
       },
       locale: "en_US",
       siteName: "Virus-Blog",
@@ -37,13 +34,28 @@ export const siteConfig = {
       handle: "@virus24",
       cardType: "summary_large_image",
       image: {
-        url: `${websiteUrl}/static/assets/devloper.gif`,
+        url: logo,
         width: 1012,
         height: 506,
         alt: "Blog for Whatsapp group for web development",
-        type: "image/png",
+        type: "image/gif",
       },
     },
     robots: "index, follow",
   },
 };
+
+export const API = "https://webfull-stack-courses.herokuapp.com"
+
+//user token
+export const getToken = () => localStorage.getItem("token")
+export const setToken = (token) => localStorage.setItem("token", token)
+// rigster code 
+export const setCode =  (code) => localStorage.setItem("userCode", code)
+export const getCode =  () => localStorage.getItem("userCode")
+export const removeCode = () => localStorage.removeItem("userCode")
+
+//user data
+export const setUser = (user) => localStorage.setItem("user", user)
+export const getUser = () => localStorage.setItem("user")
+

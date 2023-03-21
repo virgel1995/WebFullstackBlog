@@ -19,19 +19,6 @@ import {
 } from '@chakra-ui/react';
 import { Avatar, Logo } from "@/Ui"
 
-const NavLink = ({ children }) => (
-	<Link
-		px={2}
-		py={1}
-		rounded={'md'}
-		_hover={{
-			textDecoration: 'none',
-			bg: useColorModeValue('gray.200', 'gray.700'),
-		}}
-		href={'#'}>
-		{children}
-	</Link>
-);
 
 export function browserNavbar() {
 
@@ -99,13 +86,7 @@ export default function Navbar(props) {
 
 	return (
 		<>
-			<BrowserView>
-				<browserNavbar refe={props.refe} open={props.open} />
-			</BrowserView>
-
-			<MobileView>
 				<MobileNavbar refe={props.refe} open={props.open} />
-			</MobileView>
 
 		</>
 	)

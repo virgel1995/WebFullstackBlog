@@ -73,7 +73,7 @@ export default function Footer() {
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}>
           <Text>© 2022 - { new Date().getFullYear()} Virus24. All rights reserved</Text>
-          <Stack direction={'row'} spacing={6}>
+					<Stack direction={'row'} spacing={6}>
             <SocialButton label={'Twitter'} href={'#'}>
               <FaTwitter />
             </SocialButton>

@@ -1,12 +1,9 @@
-import { Image } from '@chakra-ui/react';
-import logo from "@/Assets/img/logo.svg"
+import { Avatar } from '@chakra-ui/react';
+import logo from "@/Assets/img/developer.gif"
 export default function Logo(params) {
 	return (
 		<>
-			<Image pl= "2" pr= "2"
-                    size={'sm'}
-                    src={logo}
-                  />
+<Avatar mx="1" name='Kola Tioluwani' src={logo} />
 		</>
 	)
 }

@@ -13,13 +13,15 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
-import { API} from "@/Config";
+import { API,setToken, getCode, removeCode } from "@/Config";
 import { useNavigate } from "react-router-dom"
-export default function Login() {
+export default function Login(props) {
 	const navigate = useNavigate()
 const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
+   let code = getCode();
+        
 const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -28,15 +30,27 @@ const submitHandler = async (e) => {
         password,
       });
 console.log(data)
-
-      localStorage.setItem('userInfo', JSON.stringify(data));
+if (password === code) {
+deleteCode()
+}
+    setToken(data.token.access_token);
+	toast({
+  title: "Successfully Loged in ",
+  description: "Welcome Back Mate 🎉🎉",
+  status: "success",
+  duration: 3000,
+  isClosable: true,
+                  })
       navigate('/home');
-
-
     } catch (err) {
-
 			console.log(err)
-     // toast.error(getError(err));
+	toast({
+  title: "Sorry But You Faild",
+  description: "Please check your Data You Inter And Retry Again",
+  status: "error",
+  duration: 3000,
+  isClosable: true,
+                  })
     }
   };
   return (
@@ -47,7 +61,16 @@ console.log(data)
 				<Form onSubmit={submitHandler}>
         <Stack spacing={4} w={'full'} maxW={'md'}>
 					
-          <Heading fontSize={'2xl'}>Sign in to your account</Heading>
+          <Heading fontSize={'2xl'}>Sign in to your account
+						<hr />
+						{(()=>{
+					if(code){
+						return (
+		<p >Your Access Code : {code} </p>
+)
+					}
+						})()}
+					</Heading>
 		
     <FormControl id="name">
    <FormLabel>

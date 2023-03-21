@@ -13,22 +13,25 @@ import {
   Text,
   useColorModeValue,
   Link,
+	useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import Axios from 'axios';
 import { Form, Formik } from 'formik';
-import { API} from "@/Config";
+import { API, setCode} from "@/Config";
 import { useNavigate } from "react-router-dom"
+
 export default function Rigster() {
-  const [showPassword, setShowPassword] = useState(false);
+
 	const navigate = useNavigate()
+		const toast = useToast();
+  const [showPassword, setShowPassword] = useState(false);
 const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 	 const [age, setAge] = useState('');
 	 const [gender, setGender] = useState('');
-	
-console.log(name, age, gender, password)
+
 const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -40,14 +43,33 @@ const submitHandler = async (e) => {
       });
 console.log(data)
 
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      navigate('/home');
+	toast({
+  title: "Account Created Successfully ",
+  description: "Please Use Your Code below To Login First Time To Accept Your Account",
+  status: "success",
+  duration: 3000,
+  isClosable: true,
+                  })
+//set to local storage
+setCode( data.yourAccessCode);
+      navigate("/login");
+			
+	
     } catch (err) {
 			console.log(err)
-     // toast.error(getError(err));
+	toast({
+  title: "Account UnDone ",
+  description: " some Errors Please Make Sure You Fill Correct Data",
+  status: "error",
+  duration: 3000,
+  isClosable: true,
+                  })
     }
   };
-	
+	/*const copyCode = async () => {
+    await navigator.clipboard.writeText(token);
+    alert('Text copied');
+				}*/
   return (
 		<Formik>
     <Flex
@@ -88,7 +110,7 @@ console.log(data)
                 </FormControl>
               </Box>
             </HStack>
-            <FormControl id="email" isRequired>
+            <FormControl isRequired>
               <FormLabel>Gender</FormLabel>
               <Input type="text" onChange={(e) => setGender(e.target.value)}/>
             </FormControl>

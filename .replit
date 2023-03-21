@@ -2,9 +2,7 @@
 hidden = [
 ".config",
 "package-lock.json", 
-"index.html",
-".gitignore",
-"public"
+".gitignore"
 ]
 #run = ["sh", "-c", "yarn dev"]
 run = "yarn dev"
