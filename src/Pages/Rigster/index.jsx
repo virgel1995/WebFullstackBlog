@@ -16,10 +16,9 @@ import {
 	useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import Axios from 'axios';
-import { Form, Formik } from 'formik';
-import { API, setCode} from "@/Config";
+
+import { FiEyeOff, FiEye } from "react-icons/fi";
+import { SignUp, setCode} from "@/Config";
 import { useNavigate } from "react-router-dom"
 
 export default function Rigster() {
@@ -35,13 +34,12 @@ const [name, setName] = useState('');
 const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await Axios.post(API+'/updateOrCreate', {
+      const { data } = await SignUp(
         name,
         password,
 				gender,
-				age
-      });
-console.log(data)
+				age);
+//console.log(data)
 
 	toast({
   title: "Account Created Successfully ",
@@ -51,7 +49,7 @@ console.log(data)
   isClosable: true,
                   })
 //set to local storage
-setCode( data.yourAccessCode);
+setCode(data.yourAccessCode);
       navigate("/login");
 			
 	
@@ -71,13 +69,12 @@ setCode( data.yourAccessCode);
     alert('Text copied');
 				}*/
   return (
-		<Formik>
-    <Flex
+	 <Flex
       minH={'100vh'}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
-			<Form onSubmit={submitHandler}>
+			<Box as="form" onSubmit={submitHandler}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -124,7 +121,7 @@ setCode( data.yourAccessCode);
                     onClick={() =>
                       setShowPassword((showPassword) => !showPassword)
                     }>
-                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    {showPassword ? <FiEye /> : <FiEyeOff />}
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -150,8 +147,7 @@ setCode( data.yourAccessCode);
           </Stack>
         </Box>
       </Stack>
-		</Form>
+			</Box>
     </Flex>
-		</Formik>
   );
 						}

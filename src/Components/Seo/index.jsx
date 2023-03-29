@@ -7,7 +7,7 @@ export default function Seo (){
   const defaultSeo = siteConfig.seo;
   const meta = { ...defaultSeo };
   const image = meta.openGraph?.image?.url
-	console.log(image)
+//	console.log(image)
 
 const path =  window.location.pathname;
 	return (

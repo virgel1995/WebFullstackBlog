@@ -2,31 +2,41 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ChakraProvider } from '@chakra-ui/react'
 import { HelmetProvider } from 'react-helmet-async';
-import { router } from "@/routes"
 import {
   BrowserRouter,
   Route,
   Routes
 } from "react-router-dom";
-import { Layout, NotFound, Login, Rigster, Home } from "@/Pages"
-
+import { 
+	Layout,
+	NotFound,
+	Login,
+	Rigster,
+	Home,
+	Landing,
+	PostView
+} from "@/Pages"
+import "@/Assets/css/index.css"
+import {theme } from "@/Config"
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>   
 				<BrowserRouter>
 		<HelmetProvider>	
-			<ChakraProvider>
+			<ChakraProvider theme ={theme}>
         <Routes>
 					
-		<Route path="/" element={ <Layout><Login /></Layout>} />
+		<Route path="/" element={ <Layout><Landing /></Layout>} />
          
 	<Route path="/home" element={<Layout><Home /></Layout>} />
 					
-	<Route path="/login" element={<Layout><Login /></Layout>} />
+	<Route path="/login" element={<Login />} />
 					
-  <Route path="/rigster" element={<Layout><Rigster /></Layout>} />
+  <Route path="/rigster" element={<Rigster />} />
+					
+  <Route path="/post/view" element={<Layout><PostView /></Layout>} />
 
 					
-	<Route path="*" element={<Layout><NotFound /></Layout>} />
+	<Route path="*" element={<NotFound />} />
      
 				</Routes>
 		   </ChakraProvider>

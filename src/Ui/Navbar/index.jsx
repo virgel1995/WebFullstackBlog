@@ -1,8 +1,13 @@
-import { BrowserView, MobileView } from 'react-device-detect';
+import * as React from "react"
 import {
 	Link,
+useNavigate
+
 } from "react-router-dom";
-import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
+
+
+import { FiMoon , FiSun, FiMenu, FiShare, FiUserPlus} from "react-icons/fi";
+
 import {
 	Box,
 	Flex,
@@ -11,34 +16,98 @@ import {
 	MenuButton,
 	MenuList,
 	MenuItem,
-	MenuDivider,
 	useColorModeValue,
 	Stack,
 	useColorMode,
-	Center,
 } from '@chakra-ui/react';
 import { Avatar, Logo } from "@/Ui"
+import { getUserDetails, setLoged, removeToken } from "@/Config"
 
+export function IsLogedIn(props) {
+		const navigate =useNavigate()
+	const Logout = () => {
+		setLoged(false)
+		removeToken()
+		navigate("/")
+window.location.reload() 
+	}
+	if (props.username === "") {
+		return (
+			<MenuList >
+			<MenuItem display= "flex">
+				<FiShare px="2" />	
+		<Link to="/login" >
+									Login
+								</Link>
+					</MenuItem>
+			<MenuItem display="flex">
+				<FiUserPlus />
+		<Link to="/rigster" >
+										Rigster
+								</Link>
+					</MenuItem>							</MenuList>
+		) 
+	} else {
+return (
+	<>
+									<MenuList >
 
-export function browserNavbar() {
-
-	return (
-		<>
-			browser navbar
-		</>
-	)
+			<MenuItem>
+					<Link to="/profile" >
+										Profile
+								</Link>
+									</MenuItem>
+									
+									<MenuItem>
+		<Link to="/profile/settings" >
+										Settings
+								</Link>
+					</MenuItem>
+					<MenuItem onClick={Logout}>
+					Logout
+										
+					</MenuItem>
+								</MenuList>
+	</>
+)
 }
-export function MobileNavbar(props) {
+}
+
+export default function Navbar(props) {
+	const navigate =useNavigate()
+		const [user, setUser ] = React.useState(null)
+	
 	const { colorMode, toggleColorMode } = useColorMode();
+
+	
+	React.useEffect(()=>{
+		getUserDetails().then(({data}) =>{
+
+// console.log(data)
+	setUser(data);
+		}).catch((e) =>{
+			console.log(e.message)
+		//	navigate("/login")
+})
+	}, [user])
+ let username;
+
+
+	if (user) {
+		username = user.name
+			} else {
+		username = ""
+	}
+	
 	return (
 		<>
 			<Box bg={useColorModeValue('gray.100', 'gray.900')} px={"4"}>
 				<Flex h={"16"} alignItems={'center'} justifyContent={'space-between'}>
 					<Flex>
-						<Button ref={props.refe} onClick={props.open} > <HamburgerIcon /> </Button>
+						<Button ref={props.refe} onClick={props.open} > <FiMenu /> </Button>
 						<Logo />
 						<Button onClick={toggleColorMode}>
-							{colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+							{colorMode === 'light' ? <FiMoon /> : <FiSun />}
 						</Button>
 					</Flex>
 
@@ -47,31 +116,15 @@ export function MobileNavbar(props) {
 							<Menu>
 								<MenuButton
 									as={Button}
-									rounded={'full'}
+							rounded={'full'}
 									variant={'link'}
-									cursor={'pointer'}>
+									cursor={'pointer'}
+					>
 									<Avatar
 										url={'https://i.pravatar.cc/300'}
 									/>
 								</MenuButton>
-								<MenuList >
-									<br />
-									<Center>
-										<p>Username</p>
-									</Center>
-									<br />
-									<MenuDivider />
-									<MenuItem>
-										Your Servers
-									</MenuItem>
-									<MenuItem>
-										Account Settings
-									</MenuItem>
-									<MenuItem>
-										Logout
-									</MenuItem>
-
-								</MenuList>
+		<IsLogedIn username={username}/>
 							</Menu>
 						</Stack>
 					</Flex>
@@ -82,13 +135,4 @@ export function MobileNavbar(props) {
 }
 
 
-export default function Navbar(props) {
 
-	return (
-		<>
-				<MobileNavbar refe={props.refe} open={props.open} />
-
-		</>
-	)
-
-}

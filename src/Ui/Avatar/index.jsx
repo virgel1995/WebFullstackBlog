@@ -21,10 +21,12 @@ const size = '40px';
     <Flex
       justifyContent="center"
       alignItems="center"
-      h="216px"
+      h="full"
+		//	bg="red"
       w="full"
+		//	rounded="full"
       overflow="hidden">
-      {/* Ideally, only the box should be used. The <Flex /> is used to style the preview. */}
+
       <Box
         as="div"
         position="relative"

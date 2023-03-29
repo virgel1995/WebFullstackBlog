@@ -1,5 +1,4 @@
 
-import { BrowserView, MobileView } from 'react-device-detect';
 import {
 	Drawer,
 	DrawerBody,
@@ -23,13 +22,6 @@ const animals = [
 	"Horse"
 ];
 
-export function browserSidebar() {
-	return (
-		<>
-			Browser side bar
-		</>
-	)
-}
 export function MobileSidebar({
 	open,
 	close,

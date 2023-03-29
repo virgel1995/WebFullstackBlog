@@ -1,5 +1,4 @@
 import { useState } from "react"
-import Axios from 'axios';
 import {
   Button,
   Checkbox,
@@ -11,12 +10,15 @@ import {
   Link,
   Stack,
   Image,
+useToast,
+Box
 } from '@chakra-ui/react';
-import { Form, Formik } from 'formik';
-import { API,setToken, getCode, removeCode } from "@/Config";
+import { SignIn,setToken, getCode, removeCode, setLoged } from "@/Config";
 import { useNavigate } from "react-router-dom"
 export default function Login(props) {
 	const navigate = useNavigate()
+			const toast = useToast();
+ 
 const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,15 +27,17 @@ const [name, setName] = useState('');
 const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await Axios.post(API+'/Login', {
+      const { data } = await SignIn(
         name,
         password,
-      });
-console.log(data)
+      );
+//console.log(data)
 if (password === code) {
-deleteCode()
+removeCode()
 }
-    setToken(data.token.access_token);
+
+setToken(data.data.token);
+setLoged(true)
 	toast({
   title: "Successfully Loged in ",
   description: "Welcome Back Mate 🎉🎉",
@@ -54,11 +58,11 @@ deleteCode()
     }
   };
   return (
-		    <Formik>
+
     <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
       <Flex p={8} flex={1} align={'center'} justify={'center'}>
 				
-				<Form onSubmit={submitHandler}>
+				<Box as="form" onSubmit={submitHandler}>
         <Stack spacing={4} w={'full'} maxW={'md'}>
 					
           <Heading fontSize={'2xl'}>Sign in to your account
@@ -95,14 +99,15 @@ deleteCode()
               <Checkbox>Remember me</Checkbox>
               <Link color={'blue.500'}>Forgot password?</Link>
             </Stack>
-            <Button type= "submit" colorScheme={'blue'} variant={'solid'}>
+            <Button type= "submit" colorScheme={'blue'} variant={'solid'} 
+                loadingText="Submitting">
               Sign in
             </Button>
 						
           </Stack>
 					
         </Stack>
-				</Form>
+				</Box>
       </Flex>
 			
       <Flex flex={1}>
@@ -115,6 +120,5 @@ deleteCode()
         />
       </Flex>
     </Stack>
-					    </Formik>
   );
 }
