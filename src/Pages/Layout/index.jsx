@@ -4,6 +4,7 @@ import {
 useDisclosure,
 Center
 } from '@chakra-ui/react'
+
 import { Seo } from "@/Components"
 import { Sidebar , History, Navbar, Footer, Loader} from "@/Ui"
 import { waiter, getToken, setLoged ,setAdmin} from "@/Config"

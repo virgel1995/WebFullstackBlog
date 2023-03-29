@@ -7,22 +7,22 @@ import {
 	Breadcrumb,
 	BreadcrumbItem,
 	GridItem,
-  Box,
-	Center,
-	Container ,
-	Grid
+  Container ,
+	Grid,
+IconButton
 } from '@chakra-ui/react'
 import {
-	FiArrowRightCircle
+	FiArrowRightCircle,FiWifiOff,FiWifi
 } from "react-icons/fi"
 import { PostCreate } from "@/Components"
+import useOnline from '@/Hooks/onlineStatus';
 
 import { getLoged ,getAdmin} from "@/Config"
 
 export function Loged(params) {
   const [loged , setLoged ] = useState(false)
 const [isAdmin, setIsAdmin ] = useState(false)
-	
+	const online = useOnline()
 	useEffect(() =>{
 		if (getLoged() === "true") {
 			setLoged(true)
@@ -47,7 +47,17 @@ const [isAdmin, setIsAdmin ] = useState(false)
 						</BreadcrumbItem>
 					</Breadcrumb>
 </GridItem>
-  <GridItem  />
+  <GridItem > {online ? <IconButton
+  colorScheme='teal'
+  aria-label='Call Segun'
+  size='md'
+  icon={<FiWifi />}
+/> : <IconButton
+  colorScheme='red'
+  aria-label='Call Segun'
+  size='md'
+  icon={<FiWifiOff />}
+/>}</GridItem>
   <GridItem  alignItems={"center"}  >
 		
 		{isAdmin  && (
