@@ -8,14 +8,14 @@ export default defineConfig({
 						//, jsconfigPaths()
 					 ],
 	server:{
-		proxy: {
+		/*proxy: {
       '/api': {
         target: "https://webfull-stack-courses.herokuapp.com",
         changeOrigin: true,
         secure: true,
 				rewrite: (path) => path.replace(/^\/api/, ''),
 			},
-		},
+		},*/
 		host:"0.0.0.0",
 		port: 2023,
 		usePolling: true

@@ -3,7 +3,7 @@ import { API, getToken } from "./"
 
 
 export const SignIn = (name, password ) =>{
-	return Axios.post('/api/Login', {
+	return Axios.post(API + '/Login', {
         name,
         password,
       })
@@ -12,7 +12,7 @@ export const SignIn = (name, password ) =>{
 
 
 export const SignUp =(        name,password,gender,age)=>{
-	return Axios.post('/api/updateOrCreate', {
+	return Axios.post(API + '/updateOrCreate', {
         name,
         password,
 				gender,
@@ -20,7 +20,7 @@ export const SignUp =(        name,password,gender,age)=>{
       });
 }
 export const updateUser =(id,        name,password,gender,age)=>{
-	return Axios.post('/api/updateOrCreate', {
+	return Axios.post(API + '/updateOrCreate', {
 		id:id,
         name,
         password,
@@ -29,7 +29,7 @@ export const updateUser =(id,        name,password,gender,age)=>{
       });
 }
 export const getUserDetails =()=>{
-	return Axios.post('/api/profile', {
+	return Axios.post(API + '/profile', {
 		token : getToken()
 	} ,{
 		headers: {
@@ -39,7 +39,7 @@ export const getUserDetails =()=>{
 }
 
 export const createPost =(title, desc)=>{
-	return Axios.post('/api/Blogs/updateOrCreate', {
+	return Axios.post(API + '/Blogs/updateOrCreate', {
 			title: title,
        text: desc
 					},{
@@ -50,7 +50,7 @@ export const createPost =(title, desc)=>{
 );
 }
 export const updatePost =(id, title, desc)=>{
-	return Axios.post('/api/Blogs/updateOrCreate', {
+	return Axios.post(API + '/Blogs/updateOrCreate', {
 		  id:id,
 			title: title,
        text: desc
@@ -63,11 +63,11 @@ export const updatePost =(id, title, desc)=>{
 }
 
 export const getPosts = () =>{
-	return Axios.get(`/api/Blogs`)
+	return Axios.get(API + `/Blogs`)
 }
 
 export const createComment =(id, comment) =>{
-	return Axios.post('/api/Blogs/Comments/create', {
+	return Axios.post(API + '/Blogs/Comments/create', {
 			blog_id: id,
        text: comment 
 					},{
@@ -79,7 +79,7 @@ export const createComment =(id, comment) =>{
 }
 
 export const getComments = (Blog_id) =>{
-	return Axios.get(`/api/Blogs/Comments?Blog_id=${Blog_id}`,{
+	return Axios.get(API + `/Blogs/Comments?Blog_id=${Blog_id}`,{
 		headers: {
 			"Accept":"application/json",
 			"Content-Type": "application/json",
@@ -88,7 +88,7 @@ export const getComments = (Blog_id) =>{
 }
 
 export const tagAdd = (blog_id, tag) =>{
-return Axios.post(`/api/Blogs/Tags/updateOrCreate`,{
+return Axios.post(API + `/Blogs/Tags/updateOrCreate`,{
 			blog_id: blog_id,
        name: tag
 					},{
@@ -100,7 +100,7 @@ return Axios.post(`/api/Blogs/Tags/updateOrCreate`,{
 }
 
 export const tagUpdate = (blog_id, tag, id) =>{
-return Axios.post(`/api/Blogs/Tags/updateOrCreate`,{
+return Axios.post(API + `/Blogs/Tags/updateOrCreate`,{
 			blog_id: blog_id,
        name: tag,
 	     id: id
