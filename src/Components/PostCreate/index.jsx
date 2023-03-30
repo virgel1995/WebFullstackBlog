@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { 
 	createPost
-} from "@/Config";
+} from "../../Config";
 import {	useNavigate } from"react-router-dom";
 import { 
 	FiNavigation,

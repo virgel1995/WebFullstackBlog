@@ -1,5 +1,5 @@
 import Axios from "axios"
-import { API, getToken } from "@/Config"
+import { API, getToken } from "./"
 
 
 export const SignIn = (name, password ) =>{

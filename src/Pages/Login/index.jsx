@@ -13,11 +13,11 @@ import {
 useToast,
 Box
 } from '@chakra-ui/react';
-import { SignIn,setToken, getCode, removeCode, setLoged } from "@/Config";
+import { SignIn,setToken, getCode, removeCode, setLoged } from "../../Config";
 import { useNavigate } from "react-router-dom"
 export default function Login(props) {
 	const navigate = useNavigate()
-			const toast = useToast();
+ const toast = useToast();
  
 const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -46,6 +46,7 @@ setLoged(true)
   isClosable: true,
                   })
       navigate('/home');
+			window.location.reload();
     } catch (err) {
 			console.log(err)
 	toast({

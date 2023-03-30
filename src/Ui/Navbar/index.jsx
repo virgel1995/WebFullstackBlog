@@ -2,9 +2,7 @@ import * as React from "react"
 import {
 	Link,
 useNavigate
-
 } from "react-router-dom";
-
 
 import { FiMoon , FiSun, FiMenu, FiShare, FiUserPlus} from "react-icons/fi";
 
@@ -20,18 +18,44 @@ import {
 	Stack,
 	useColorMode,
 } from '@chakra-ui/react';
-import { Avatar, Logo } from "@/Ui"
-import { getUserDetails, setLoged, removeToken } from "@/Config"
+import { Avatar, Logo } from "../"
+import { getUserDetails, setLoged, removeToken, getLoged,setAdmin } from "../../Config"
 
 export function IsLogedIn(props) {
 		const navigate =useNavigate()
 	const Logout = () => {
 		setLoged(false)
 		removeToken()
+		setAdmin(false)
 		navigate("/")
 window.location.reload() 
 	}
-	if (props.username === "") {
+return (
+	<>
+									<MenuList >
+
+			<MenuItem>
+					<Link to="/profile" state = {props.user} >
+										Profile
+								</Link>
+									</MenuItem>
+									
+									<MenuItem>
+		<Link to="/profile" >
+										Settings
+								</Link>
+					</MenuItem>
+					<MenuItem onClick={Logout}>
+					Logout
+										
+					</MenuItem>
+								</MenuList>
+	</>
+)
+
+}
+
+export function IsLogedOut(props) {
 		return (
 			<MenuList >
 			<MenuItem display= "flex">
@@ -47,58 +71,29 @@ window.location.reload()
 								</Link>
 					</MenuItem>							</MenuList>
 		) 
-	} else {
-return (
-	<>
-									<MenuList >
-
-			<MenuItem>
-					<Link to="/profile" >
-										Profile
-								</Link>
-									</MenuItem>
-									
-									<MenuItem>
-		<Link to="/profile/settings" >
-										Settings
-								</Link>
-					</MenuItem>
-					<MenuItem onClick={Logout}>
-					Logout
-										
-					</MenuItem>
-								</MenuList>
-	</>
-)
-}
-}
+		}
 
 export default function Navbar(props) {
 	const navigate =useNavigate()
-		const [user, setUser ] = React.useState(null)
-	
+	const [user, setUser ] = React.useState(null)
+	  const [loged , setLoged ] = React.useState(false)
 	const { colorMode, toggleColorMode } = useColorMode();
-
-	
 	React.useEffect(()=>{
-		getUserDetails().then(({data}) =>{
-
+		if (getLoged() === "true") {
+setLoged(true);				getUserDetails().then(({data}) =>{
 // console.log(data)
 	setUser(data);
 		}).catch((e) =>{
-			console.log(e.message)
-		//	navigate("/login")
-})
-	}, [user])
- let username;
-
-
-	if (user) {
-		username = user.name
-			} else {
-		username = ""
-	}
-	
+			console.log({
+	message: "Error NavBar",
+	error: e
+});
+});
+		}
+		return () => {
+			console.log("getUser Done ✅")
+		}
+	}, [loged])
 	return (
 		<>
 			<Box bg={useColorModeValue('gray.100', 'gray.900')} px={"4"}>
@@ -124,7 +119,15 @@ export default function Navbar(props) {
 										url={'https://i.pravatar.cc/300'}
 									/>
 								</MenuButton>
-		<IsLogedIn username={username}/>
+			{(()=>{
+if (loged) {
+	return <IsLogedIn user={user}/>
+}else {
+	return <IsLogedOut />
+}
+})()}
+
+		
 							</Menu>
 						</Stack>
 					</Flex>

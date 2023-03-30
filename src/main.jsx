@@ -14,10 +14,12 @@ import {
 	Rigster,
 	Home,
 	Landing,
-	PostView
-} from "@/Pages"
-import "@/Assets/css/index.css"
-import {theme } from "@/Config"
+	PostView,
+	PostUpdate,
+	Profile
+} from "./Pages"
+import "./assets/css/index.css"
+import {theme } from "./Config"
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>   
 				<BrowserRouter>
@@ -32,8 +34,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 	<Route path="/login" element={<Login />} />
 					
   <Route path="/rigster" element={<Rigster />} />
+	<Route path="/profile" element={<Profile />} />
 					
   <Route path="/post/view" element={<Layout><PostView /></Layout>} />
+  <Route path="/post/edit" element={<Layout><PostUpdate /></Layout>} />
 
 					
 	<Route path="*" element={<NotFound />} />

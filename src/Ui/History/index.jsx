@@ -14,10 +14,10 @@ IconButton
 import {
 	FiArrowRightCircle,FiWifiOff,FiWifi
 } from "react-icons/fi"
-import { PostCreate } from "@/Components"
-import useOnline from '@/Hooks/onlineStatus';
+import { PostCreate } from "../../Components"
+import useOnline from '../../Hooks/onlineStatus';
 
-import { getLoged ,getAdmin} from "@/Config"
+import { getLoged ,getAdmin} from "../../Config"
 
 export function Loged(params) {
   const [loged , setLoged ] = useState(false)
@@ -30,7 +30,7 @@ const [isAdmin, setIsAdmin ] = useState(false)
 	if (getAdmin() === "true") {
 		setIsAdmin(true)
 	}
-	}, [loged])
+	}, [loged,isAdmin])
 		return (
 <Grid templateColumns='repeat(3, 1fr)' gap={6} alignItems={"center"}>
   <GridItem >
@@ -60,9 +60,12 @@ const [isAdmin, setIsAdmin ] = useState(false)
 />}</GridItem>
   <GridItem  alignItems={"center"}  >
 		
-		{isAdmin  && (
-           <PostCreate  />
-         )}
+		{(()=>{if (isAdmin) {
+			return (
+			<PostCreate  />
+			)
+		}
+})()}
 	</GridItem>
 </Grid>
 	)

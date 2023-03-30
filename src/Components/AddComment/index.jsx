@@ -7,7 +7,7 @@ import {
 	useToast
 } from '@chakra-ui/react'
 import { FiNavigation } from "react-icons/fi"
-import { createComment } from "@/Config"
+import { createComment } from "../../Config"
 
 export default function AddComment(props) {
 	const toast = useToast()

@@ -1,7 +1,7 @@
 import { useState, useEffect} from "react"
 import {useNavigate} from "react-router-dom"
-import { Posts } from "@/Components"
-import { getUserDetails, setAdmin } from "@/Config"
+import { Posts } from "../../Components"
+import { getUserDetails, setAdmin } from "../../Config"
 
 export default function Home () {
 

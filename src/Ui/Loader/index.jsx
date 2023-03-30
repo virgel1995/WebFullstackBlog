@@ -1,6 +1,6 @@
 import { Box, Container, keyframes, Image } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import Logo from "@/Assets/img/logo.svg"
+import Logo from "../../assets/img/logo.svg"
 const animationKeyframes = keyframes`
   0% { transform: scale(1) rotate(0); border-radius: 20%; }
   25% { transform: scale(2) rotate(0); border-radius: 20%; }

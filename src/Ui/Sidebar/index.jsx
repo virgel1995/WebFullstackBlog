@@ -12,7 +12,6 @@ import {
 	MenuList,
 	Menu
 } from '@chakra-ui/react'
-import { router } from "@/routes";
 import { Link } from "react-router-dom"
 const animals = [
 	"Dog",
@@ -63,10 +62,7 @@ export function MobileSidebar({
 					</DrawerBody>
 
 					<DrawerFooter>
-						<Button variant='outline' mr={3} onClick={close}>
-							Cancel
-						</Button>
-						<Button colorScheme='blue'>Save</Button>
+footer
 					</DrawerFooter>
 				</DrawerContent>
 			</Drawer>

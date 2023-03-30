@@ -1,6 +1,6 @@
 import {Helmet} from "react-helmet-async";
  
-import { siteConfig , websiteUrl} from "@/Config";
+import { siteConfig , websiteUrl} from "../../Config";
 
 export default function Seo (){
 	

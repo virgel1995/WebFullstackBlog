@@ -5,9 +5,9 @@ useDisclosure,
 Center
 } from '@chakra-ui/react'
 
-import { Seo } from "@/Components"
-import { Sidebar , History, Navbar, Footer, Loader} from "@/Ui"
-import { waiter, getToken, setLoged ,setAdmin} from "@/Config"
+import { Seo } from "../../Components"
+import { Sidebar , History, Navbar, Footer, Loader} from "../../Ui"
+import { waiter, getToken, setLoged ,setAdmin} from "../../Config"
 
 export default function Layout({children}) {
 	const [loading , setLoading ] = React.useState(true);

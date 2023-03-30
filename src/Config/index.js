@@ -13,7 +13,7 @@ export const theme = extendTheme({
 
 export const websiteUrl =  "https://WebFullstackBlog.virgel1995.repl.co";
 export const githubBaseUrl = "https://github.com/virgel1995/WebFullstackBlog";
-import logo from "@/Assets/img/developer.gif"
+import logo from "../assets/img/developer.gif"
 export const siteConfig = {
   repo: {
     url: githubBaseUrl,

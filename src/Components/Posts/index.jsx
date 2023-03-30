@@ -1,5 +1,5 @@
 import { useState , useEffect } from "react"
-import { getPosts, getLoged, getAdmin } from "@/Config"
+import { getPosts, getLoged, getAdmin } from "../../Config"
 import { Link } from "react-router-dom"
 	
 	import { 
@@ -12,13 +12,13 @@ import { Link } from "react-router-dom"
         Flex,
 		Button
 			 } from "@chakra-ui/react"
-import { Loader} from "@/Ui"
-import logo from "@/Assets/img/developer.gif"
+import { Loader} from "../../Ui"
+import logo from "../../assets/img/developer.gif"
 import moment from 'moment';
 import { 
 	AddComment,
 	CommentsCount 
-} from '@/Components'
+} from '../'
 
 import { FiSettings } from "react-icons/fi";
 
@@ -41,7 +41,10 @@ getPosts().then(({ data }) => {
     setPosts(data.data);
 	  setLoading(false);
   }).catch((e) => {
-console.log(e.message)
+console.log({
+	message: "Error Posts",
+	error: e.message
+})
             })
 return () => {
 	console.log("getPosts Done ✅")
@@ -68,15 +71,19 @@ return (
 				</Text>
 	<Text fontSize="10px" bg="red.100" color="black" rounded="lg" px="1">{moment(post.created_at).local().startOf('seconds').fromNow()}
 	</Text>
-					{isAdmin && (				
-		<Button ml="5" borderRadius="full" borderLeft= "solid 4px #7928CA" borderRight= "solid 4px #7928CA"  bg="#FF0080" rounded="full" maxW="10" >
+		{(()=>{
+		if (isAdmin) {
+			return (
+					<Button ml="5" borderRadius="full" borderLeft= "solid 4px #7928CA" borderRight= "solid 4px #7928CA"  bg="#FF0080" rounded="full" maxW="10" >
 		<Link key={post.id}  
 		to="/post/edit"
 		state= {post}  >
 			<FiSettings />
 		</Link>			
 </Button>
-					)}
+		)
+		}
+		})()}
 				</Flex>
 			
         <Box d="flex" alignItems="center" spacing="2">

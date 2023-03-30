@@ -7,13 +7,13 @@ import {
         Flex,
 	      SimpleGrid
 			 } from "@chakra-ui/react"
-import logo from "@/Assets/img/developer.gif"
+import logo from "../../assets/img/developer.gif"
 import moment from 'moment';
 import { 
   AddTag,
 	CommentsCount,
    Comments
-} from '@/Components'
+} from '../'
 
 export default function PostScreen({
 	post

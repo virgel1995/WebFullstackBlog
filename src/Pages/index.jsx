@@ -8,3 +8,5 @@ export { default as Login } from"./Login"
 export { default as Rigster } from "./Rigster"
 
 export { default as PostView } from "./PostView"
+export { default as PostUpdate } from "./PostUpdate"
+export { default as Profile } from "./Profile"

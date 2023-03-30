@@ -2,7 +2,7 @@
 
 
 import {useState , useEffect} from "react"
-import { getComments, getLoged } from "@/Config"
+import { getComments, getLoged } from "../../Config"
 import { 
 	useColorModeValue,
   Text,
@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { 
 	AddComment,
-} from '@/Components'
+} from '../'
 
 
 export default function Comments({
@@ -29,7 +29,10 @@ const [comments, setComments ] = useState ([])
 setComments(data.data)
 //console.log(data.data)
 }).catch((e) =>{
-		console.log(e.message)
+		console.log({
+	message: "Error Comments",
+	error: e.message
+})
 	})
 		return () => {
 	console.log("getAll Comments Done ✅")

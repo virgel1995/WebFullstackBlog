@@ -18,7 +18,7 @@ import {
 import { useState } from 'react';
 
 import { FiEyeOff, FiEye } from "react-icons/fi";
-import { SignUp, setCode} from "@/Config";
+import { SignUp, setCode} from "../../Config";
 import { useNavigate } from "react-router-dom"
 
 export default function Rigster() {

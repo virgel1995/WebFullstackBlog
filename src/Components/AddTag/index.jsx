@@ -1,6 +1,6 @@
 
 import { WithContext as ReactTags } from 'react-tag-input';
-import { Suggest, tagAdd } from "@/Config"
+import { Suggest, tagAdd } from "../../Config"
 
 import {
  Button,
@@ -69,7 +69,7 @@ handleAddition={handleAddition}
 handleDrag={handleDrag}
 handleTagClick={handleTagClick}
 inputFieldPosition="bottom"
-//  autocomplete
+  autocomplete
 editable
             />
 	      <Button onClick={handleSubmit} 

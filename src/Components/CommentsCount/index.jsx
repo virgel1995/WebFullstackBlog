@@ -6,20 +6,24 @@ import {
 import { VscComment } from "react-icons/vsc";
 
 
-import { getComments } from "@/Config"
+import { getComments, waiter } from "../../Config"
 export default function CommentsCount(props) {
 	
 const [conts, setConts] = useState([]);
-	
+	const [load, setLoad] = useState(true)
 	useEffect(()=>{
+		waiter(1000).then(() =>{
 	getComments(props.id).then(({ data}) =>{
 setConts(data.data)
 //console.log(data.data)
+			return () => {
+						console.log("getcomments Count Done ✅ ")
+			}
 })
-		return () => {
-	console.log("getcomments Count Done ✅")
-		}
-	}, [props.id,conts])
+		})
+//setLoad(false)
+	
+	}, [conts])
 
 return (
 	<>
