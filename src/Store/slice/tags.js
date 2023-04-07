@@ -9,13 +9,13 @@ const initialState = {
 
 export const getAllTags = createAsyncThunk(
   "tags/getTags",
-  async (id,thunkAPI) => {
+  async (id, { rejectWithValue }) => {
     try {
       const res = await getComments(id);
       // console.log(res.data.data)
       return res.data.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue({ error: err.message });
+      return rejectWithValue({ error: err.message });
     }
   }
 );
@@ -23,15 +23,15 @@ export const addComment = createAsyncThunk(
   // The name of the action
   "tags/addTag",
   // The payload creator
-  async ({ id, comment }, thunkAPI) => {
+  async ({ id, comment }, { rejectWithValue }) => {
     try {
       const res = await createComment(id, comment);
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
-        return thunkAPI.rejectWithValue({ error: error.response.data.message });
+        return rejectWithValue({ error: error.response.data.message });
       } else {
-        return thunkAPI.rejectWithValue({ error: error.message });
+        return rejectWithValue({ error: error.message });
       }
     }
   }

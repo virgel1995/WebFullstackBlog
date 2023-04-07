@@ -16,9 +16,17 @@ export const SignUp = (name, password, gender, age) => {
     age,
   });
 };
-export const updateUser = (id, name, password, gender, age) => {
+export const updateUser = (id, name, gender, age) => {
   return Axios.post(API + "/updateOrCreate", {
-    id: id,
+    id,
+    name,
+    gender,
+    age,
+  });
+};
+export const updatePassword = (id, name, password, gender, age) => {
+  return Axios.post(API + "/updateOrCreate", {
+    id,
     name,
     password,
     gender,

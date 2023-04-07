@@ -33,14 +33,14 @@ export default function Posts(props) {
 	const posts = useSelector(state => state.posts.posts)
 	var regExp = /[a-zA-Z]/g;
 	var testString = "john";
-				
-	if(regExp.test(testString)){
-	  /* do something if letters are found in your string */
+
+	if (regExp.test(testString)) {
+		/* do something if letters are found in your string */
 	} else {
-	  /* do something if letters are not found in your string */
+		/* do something if letters are not found in your string */
 	}
 
-	
+
 	if (!loading) {
 		return (
 			<>
@@ -49,10 +49,16 @@ export default function Posts(props) {
 					<SimpleGrid columns={[1, null, 2]} spacingX="40px" spacingY="20px">
 						{posts.map((post) => (
 							<Box key={post.id} maxW="sm" borderLeft="solid 4px #7928CA" borderRadius="lg" overflow="hidden">
-								<Image src={Postlogo} alt={post.title} w="100%" borderBottom="solid 4px #7928CA" />
+								<a href={Postlogo} >
+									<Image src={Postlogo} alt={post.title} w="100%"
+										borderBottom="solid 4px #7928CA" />
+								</a>
 								<Box p="6">
 									<Flex d="flex" alignItems="center">
-										<Avatar w="25px" h="25px" src={Userlogo} /> <Text px="1">
+										<a href={Userlogo} >
+											<Avatar w="25px" h="25px" src={Userlogo} />
+										</a>
+										<Text px="1">
 											{post.user.name}
 										</Text>
 										<Text fontSize="10px" bg="red.100" color="black" rounded="lg" px="1">{moment(post.created_at).local().startOf('seconds').fromNow()}
@@ -107,7 +113,7 @@ export default function Posts(props) {
 					</SimpleGrid>
 				</Box>
 
-	
+
 			</>
 		)
 	} else {

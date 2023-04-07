@@ -7,15 +7,14 @@ import {
 	Flex,
 	SimpleGrid
 } from "@chakra-ui/react"
-import logo from "../../assets/img/developer.gif"
 import moment from 'moment';
 import {
-	//   AddTag,
 	CommentsCount,
 	Comments,
-	AddTag
 } from '../'
 
+import Postlogo from "@/Assets/img/developer.gif"
+import Userlogo from "@/Assets/img/logo.jpg"
 export default function PostScreen({
 	post
 }) {
@@ -23,11 +22,15 @@ export default function PostScreen({
 	return (
 		<SimpleGrid columns={[1, null, 2]} spacingX="40px" spacingY="20px">
 			<Box maxH="lg" maxW="sm" borderLeft="solid 4px #7928CA" borderRadius="lg" overflow="hidden">
-				<Image src={logo} alt={post.user.name} w="100%" />
-
+				<a href={Postlogo}>
+					<Image src={Postlogo} alt={post.user.name} w="100%" />
+				</a>
 				<Box p="6">
 					<Flex d="flex" alignItems="baseline">
-						<Avatar w="25px" h="25px" src={'https://i.pravatar.cc/300'} /> <Text px="1">
+						<a href={Userlogo}>
+							<Avatar w="25px" h="25px" src={Userlogo} />
+						</a>
+						<Text px="1">
 							{post.user.name}
 						</Text>
 						<Text fontSize="10px" bg="red.100" color="black" rounded="lg" px="1">{moment(post.created_at).local().startOf('seconds').fromNow()}

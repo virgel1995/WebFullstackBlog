@@ -7,10 +7,9 @@ export default function Home() {
 
 	const navigate = useNavigate();
 	const user = useSelector(state => state.auth.user)
-	const isLogedIn = useSelector(state => state.auth.isLogedIn)
 	useEffect(() => {
-		if (isLogedIn === false) {
-			navigate("/login")
+		if (user === null) {
+			navigate("/")
 		}
 	}, [])
 

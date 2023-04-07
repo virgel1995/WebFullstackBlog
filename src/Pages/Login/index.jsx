@@ -31,33 +31,34 @@ export default function Login(props) {
   const [show, setShow] = useState(false)
 
   let code = useSelector(state => state.auth.code);
-  const auth = useSelector(state=> state.auth)
+  const auth = useSelector(state => state.auth)
 
   const handleClick = () => setShow(!show)
   const submitHandler = async () => {
-    try {
-     const login = dispatch(LoginUser({
-       name: name,
-       password: password
-     }))
+
+    const login = dispatch(LoginUser({
+      name: name,
+      password: password
+    })).then((data) => {
+      // console.log(data)
       toast({
-        title: "Successfully Loged in ",
+        title: data.payload.message,
         description: "Welcome Back Mate 🎉🎉",
         status: "success",
         duration: 3000,
         isClosable: true,
       })
-      navigate('/home');
-    } catch (err) {
-      console.log(err)
+    }).catch((e) => {
       toast({
-        title: "Sorry But You Faild",
+        title: "Thares An Error",
         description: "Please check your Data You Inter And Retry Again",
         status: "error",
         duration: 3000,
         isClosable: true,
       })
-    }
+    })
+    navigate('/home');
+    console.log(login)
   };
   return (
     <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>

@@ -38,7 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 							<Route path="/login" element={<Login />} />
 
 							<Route path="/rigster" element={<Rigster />} />
-							<Route path="/profile" element={<Profile />} />
+							<Route path="/profile" element={<Layout><Profile /></Layout>} />
 
 							<Route path="/post/:post" element={<Layout><PostView /></Layout>} />
 							<Route path="/post/edit/:post" element={<Layout><PostUpdate /></Layout>} />
