@@ -10,7 +10,7 @@ const initialState = {
 
 export const getAllPosts = createAsyncThunk(
   "posts/getPosts",
-  async ({rejectWithValue}) => {
+  async (rejectWithValue ) => {
     try {
       const res = await getPosts();
       // console.log(res.data.data)
@@ -24,7 +24,7 @@ export const addPost = createAsyncThunk(
   // The name of the action
   "posts/addPost",
   // The payload creator
-  async ({ title, text }, {rejectWithValue}) => {
+  async ({ title, text }, { rejectWithValue }) => {
     try {
       const res = await createPost(title, text);
       return res.data.data;
@@ -41,13 +41,13 @@ export const updatePostDetails = createAsyncThunk(
   // The name of the action
   "posts/updatePost",
   // The payload creator
-  async ({ id, title, text }, {rejectWithValue}) => {
+  async ({ id, title, text }, { rejectWithValue }) => {
     try {
       const update = await updatePost(id, title, text);
-     if(update.data.status = 200){
-      const res = await getPosts();
-      return res.data.data;
-     }
+      if ((update.data.status = 200)) {
+        const res = await getPosts();
+        return res.data.data;
+      }
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue({ error: error.response.data.message });
@@ -65,7 +65,6 @@ const postSlice = createSlice({
     addPost(state, action) {
       state.posts.push(action.payload);
     },
-    
   },
   extraReducers: (builder) => {
     builder.addCase(getAllPosts.pending, (state, action) => {
