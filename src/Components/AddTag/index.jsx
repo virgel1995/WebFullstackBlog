@@ -1,100 +1,111 @@
-
-import { WithContext as ReactTags } from 'react-tag-input';
-import { Suggest, tagAdd } from "@/Config"
-
-import {
-   Button,
-   useToast,
-   Flex
-} from '@chakra-ui/react';
-
-import {
-   FiNavigation,
-   FiFilePlus
-} from "react-icons/fi"
 import { useState } from "react"
-// const suggestions = Suggest.map((sug) => {
-//    return {
-//       id: sug,
-//       text: sug,
-//    };
-// });
-const KeyCodes = {
-   comma: 188,
-   enter: 13,
-};
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+import {
+  Box,
+  Button,
+  useToast,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  Flex,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverCloseButton,
+  PopoverBody,
+  PopoverArrow,
+} from '@chakra-ui/react';
+import { useNavigate } from "react-router-dom";
+import {
+  FiNavigation,
+   FiSettings
+} from "react-icons/fi"
+import { useDispatch } from "react-redux";
+import { updatePostDetails } from "@/Store/slice/posts";
 
 export default function AddTag({
-   id
+  post
 }) {
-   const [tags, setTags] = useState([]);
+  const toast = useToast();
+  const [title, setTitle] = useState(post.title)
+  const [text, setText] = useState(post.text)
+  const dispath = useDispatch()
+  const submitHandler = async (e) => {
+    e.preventDefault()
 
-   const handleDelete = (i) => {
-      setTags(tags.filter((tag, index) => index !== i));
-   };
-   const handleAddition = (tag) => {
-      setTags([...tags, tag]);
-   };
-   const handleDrag = (tag, currPos, newPos) => {
-      const newTags = tags.slice();
-      newTags.splice(currPos, 1);
-      newTags.splice(newPos, 0, tag);
-      // re-render
-      setTags(newTags);
-   };
-   const handleTagClick = (index) => {
-      console.log('The tag at index ' + index + ' was clicked');
-   };
-
-   const handleSubmit = async () => {
-
-      tags.map((tag) => {
-         tagAdd(id, tag.text).then(({ data }) => {
-            console.log(data)
-         }).catch((e) => {
-            console.log(e)
-         })
+    const updating = await dispath(updatePostDetails({
+      id: post.id,
+      title: title,
+      text: text
+    }))
+    if (updating.error) {
+      toast({
+        title: "Sorry But You Faild",
+        description: err.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
       })
-   }
-   return (
-      <>
-         <Flex>
-            <ReactTags
-               tags={tags}
-               // suggestions={suggestions}
-               delimiters={delimiters}
-               handleDelete={handleDelete}
-               handleAddition={handleAddition}
-               handleDrag={handleDrag}
-               handleTagClick={handleTagClick}
-               inputFieldPosition="bottom"
-               // autocomplete
-               editable
-            />
-            <Button onClick={handleSubmit}
-               borderRadius='full'
-               rounded="full"
-               bgGradient='linear(to-l, #7928CA, #FF0080)'
-               _hover={{
-                  bgGradient: 'linear(to-r, red.500, yellow.500)',
-               }}>
-               <FiNavigation />
-            </Button>
-         </Flex>
-      </>
-   );
+    } else {
+      toast({
+        title: "Successfully Updated Post",
+        description: `Post with id ${post.id} Is Updated`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+      // navigate('/home');
+    }
+  };
+
+  return (
+    <>
+      <Popover isLazy>
+        <PopoverTrigger>
+        <Button ml={'5'} rounded={'full'} p={'2'}
+            bgGradient='linear(to-l, #7928CA, #FF0080)'
+            _hover={{
+              bgGradient: 'linear(to-r, red.500, yellow.500)',
+            }}><FiSettings /></Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverHeader fontWeight='semibold'>Update Post</PopoverHeader>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverBody>
+            {/* updating */}
+            <Box as="form" onSubmit={submitHandler} p={'5'}>
+              {/** Form Title */}
+              <FormControl isRequired>
+                <FormLabel>Post Title</FormLabel>
+                <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+              </FormControl>
+              {/** Form Text */}
+              <FormControl isRequired>
+                <FormLabel>Post Text</FormLabel>
+                <Textarea
+                  value={text}
+                  size='sm'
+                  resize="horizontal"
+                  onChange={(e) => setText(e.target.value)}
+                />
+              </FormControl>
+              <Flex py={'1'}>
+                <Button type="submit"
+                  borderRadius='md' display={'block'}
+                  bgGradient='linear(to-l, #7928CA, #FF0080)'
+                  _hover={{
+                    bgGradient: 'linear(to-r, red.500, yellow.500)',
+                  }}>
+                  <FiNavigation />
+                </Button>
+              </Flex>
+            </Box>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    </>
+  )
 }
 
-
-/** 
-
-      <Button onClick={""} 
-      borderRadius='md'
-      bgGradient='linear(to-l, #7928CA, #FF0080)'
-      _hover={{
-        bgGradient: 'linear(to-r, red.500, yellow.500)',
-      }}>
-        submit!
-      </Button>
-*/

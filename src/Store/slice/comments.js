@@ -23,9 +23,10 @@ export const addComment = createAsyncThunk(
   // The name of the action
   "comments/addComment",
   // The payload creator
-  async ({ id, comment }, { rejectWithValue }) => {
+  async ({ id, comment }, { dispatch, rejectWithValue }) => {
     try {
       const res = await createComment(id, comment);
+      
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

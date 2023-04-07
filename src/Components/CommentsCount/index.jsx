@@ -7,12 +7,9 @@ import { VscComment } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllComments } from "@/Store/slice/comments";
 
-export default function CommentsCount(props) {
-	const comments = useSelector(state => state.comments.comments);
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getAllComments(props.id))
-	}, [])
+export default function CommentsCount({
+	comments
+}) {
 
 	return (
 		<>

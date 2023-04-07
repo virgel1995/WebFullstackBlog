@@ -34,7 +34,7 @@ export default function AddComment(props) {
     e.preventDefault();
 
     if (comment !== "") {
-      const adding = await dispatch(addComment({
+      const adding = dispatch(addComment({
         id: props.id,
         comment: comment
       }))
@@ -58,6 +58,7 @@ export default function AddComment(props) {
           isClosable: true,
         })
       }
+
     }
 
   };

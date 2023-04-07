@@ -13,6 +13,7 @@ import {
 import { getToken } from "@/Config"
 import { useDispatch } from "react-redux"
 import { setAuthToken } from "@/Store/slice/auth"
+import { getAllPosts } from "@/Store/slice/posts"
 
 export default function Layout({ children }) {
 	const { isOpen, onOpen, onClose } = useDisclosure()
@@ -20,7 +21,9 @@ export default function Layout({ children }) {
 	const dispatch = useDispatch()
 	if (getToken() !== null) {
 		dispatch(setAuthToken(getToken()))
+		dispatch(getAllPosts())
 	}
+	
 	return (
 		< >
 			<Seo />

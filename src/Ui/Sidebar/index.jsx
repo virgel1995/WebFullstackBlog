@@ -41,7 +41,8 @@ export function MobileSidebar({
 						</Stack>
 					</DrawerHeader>
 					<DrawerBody>
-						{location.pathname === "/home" ? <ul>
+						{/* {location.pathname === "/home" ? */}
+						<ul>
 							{posts.map((post, index) => (
 								<li key={index} style={{
 									display: 'flex',
@@ -53,17 +54,22 @@ export function MobileSidebar({
 											bgGradient: 'linear(to-r, red.500, yellow.500)',
 										}}>{("0" + index).slice(-2)}</Text>
 									<FiArrowRightCircle />
-									<Button w={'52'} my={'1'} ml={'1'} borderRadius='md'
-										bgGradient='linear(to-l, #7928CA, #FF0080)'
-										_hover={{
-											bgGradient: 'linear(to-r, red.500, yellow.500)',
-										}}>
-										<Link to={`/post/${post.id}`} state={post}>{post.title.slice(0, 15)}</Link>
-									</Button></li>
+									<Link to={`/post/${post.id}`} state={post}>
+
+										<Button w={'52'} my={'1'} ml={'1'} borderRadius='md'
+											bgGradient='linear(to-l, #7928CA, #FF0080)'
+											_hover={{
+												bgGradient: 'linear(to-r, red.500, yellow.500)',
+											}}>
+											{post.title.slice(0, 15)}
+										</Button>
+									</Link>
+								</li>
 							))}
-						</ul> : <Link to="/home" >
+						</ul>
+						{/* : <Link to="/home" >
 							Go Home
-						</Link>}
+						</Link>} */}
 
 					</DrawerBody>
 

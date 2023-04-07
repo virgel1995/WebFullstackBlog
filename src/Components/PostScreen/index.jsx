@@ -15,9 +15,18 @@ import {
 
 import Postlogo from "@/Assets/img/developer.gif"
 import Userlogo from "@/Assets/img/logo.jpg"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllComments } from "@/Store/slice/comments";
 export default function PostScreen({
 	post
 }) {
+
+	const comments = useSelector(state => state.comments.comments);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getAllComments(post.id))
+	}, [post])
 
 	return (
 		<SimpleGrid columns={[1, null, 2]} spacingX="40px" spacingY="20px">
@@ -63,11 +72,11 @@ export default function PostScreen({
 						width: "50%",
 						background: "#FF0080",
 					}} />
-					<CommentsCount id={post.id} />
+					<CommentsCount comments={comments} />
 				</Box>
 			</Box>
 			<Box maxW="sm" borderLeft="solid 4px #7928CA" borderRadius="lg" overflow="hidden">
-				<Comments post={post} />
+				<Comments comments={comments} post={post} />
 			</Box>
 		</SimpleGrid>
 	)

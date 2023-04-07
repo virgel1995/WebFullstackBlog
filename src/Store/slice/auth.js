@@ -39,7 +39,7 @@ export const LoginUser = createAsyncThunk(
   async ({ name, password }, { dispatch, rejectWithValue }) => {
     try {
       const res = await SignIn(name, password);
-      console.log(res.data);
+      // console.log(res.data);
       if ((res.data.status = 200)) {
         setToken(res.data.data.token);
         const user = await getUserDetails().then(async ({ data }) => {

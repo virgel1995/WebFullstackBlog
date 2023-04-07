@@ -1,44 +1,64 @@
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import {
-	useColorModeValue,
 	Text,
-	Box
+	Box,
+	Avatar,
+	Flex
 } from '@chakra-ui/react'
 import {
 	AddComment,
 } from '../'
 import { getAllComments } from "@/Store/slice/comments";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import moment from 'moment';
 
-export default function Comments() {
-	const params = useParams()
+import Userlogo from "@/Assets/img/logo.jpg"
+import { Loader } from "@/Ui";
+export default function Comments({
+	comments,
+	post
+}) {
+
+	const loading = useSelector(state => state.comments.loading)
 	const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
-	const comments = useSelector(state => state.comments.comments);
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getAllComments(params.post))
-	}, [])
-
+	
 	return (
 		<>
+		{loading ? <Loader /> :
 			<Box >
-
 				<Text textAlign={'center'}>Comments</Text>
 				{comments.map((com, index) => (
-					<Box key={com.id} maxW="sm" mt="1" py={'1'} m="1" borderRight="solid 4px #7928CA"
-						borderLeft="solid 4px #7928CA" borderRadius="lg" overflow="hidden"
+					<Box key={com.id} maxW="sm" m={'1'} borderRight="solid 4px #7928CA"
+						borderLeft="solid 4px #7928CA" borderBottom="solid 4px #7928CA" borderRadius="lg" overflow="hidden"
 						bg={'#FF0080'}>
-						<Text px="2">
-							{com.text}
-						</Text>
+						<Box bg={'#7928CA'} py={'1'} roundedBottomLeft={'md'} roundedBottomRight={'md'}>
+							<Flex d="flex"  alignItems={'center'}>
+								<a href={Userlogo}>
+									<Avatar w="25px" h="25px" src={Userlogo} />
+								</a>
+								<Text mx={'2'} bg="#FF0080"
+									color="black" rounded="lg" px="2" >
+									#{com.id}
+								</Text>
+								<Text fontSize="10px" bg="#FF0080"
+									color="black" rounded="lg" px="1">
+									{moment(com.created_at).local().startOf('seconds').fromNow()}
+								</Text>
+							</Flex>
+						</Box>
+						<Box roundedBottomRight={'md'} roundedBottomLeft={'md'} py={'1'}>
+							<Text px="2">
+								{com.text}
+							</Text>
+						</Box>
 					</Box>
 				))}
 				{isLoggedIn && (
-					<AddComment id={params.post} />
+					<AddComment id={post} />
 				)}
 			</Box>
+			}
 		</>
 	)
 }
