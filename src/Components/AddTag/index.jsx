@@ -15,92 +15,94 @@ import {
   PopoverCloseButton,
   PopoverBody,
   PopoverArrow,
+  Stack,
+  InputGroup,
+  InputLeftAddon,
+  InputRightAddon,
 } from '@chakra-ui/react';
-import { useNavigate } from "react-router-dom";
 import {
-  FiNavigation,
-   FiSettings
+  FiHash,
+  FiNavigation
 } from "react-icons/fi"
 import { useDispatch } from "react-redux";
-import { updatePostDetails } from "@/Store/slice/posts";
+import { addTag } from "@/Store/slice/posts";
 
 export default function AddTag({
   post
 }) {
   const toast = useToast();
-  const [title, setTitle] = useState(post.title)
-  const [text, setText] = useState(post.text)
+  const [text, setText] = useState('')
   const dispath = useDispatch()
   const submitHandler = async (e) => {
     e.preventDefault()
-
-    const updating = await dispath(updatePostDetails({
-      id: post.id,
-      title: title,
-      text: text
-    }))
-    if (updating.error) {
+    if (text !== '') {
+      const updating = await dispath(addTag({
+        id: post.id,
+        text: text
+      })).then((data) => {
+        toast({
+          title: "Successfully Created Tag",
+          description: `Tag ${text} Is Created`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        })
+        setText("")
+      }).catch((e) => {
+        toast({
+          title: "An Error Eccored",
+          description: e.message ?? "Error",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        })
+      })
+    } else {
       toast({
-        title: "Sorry But You Faild",
-        description: err.message,
+        title: "An Error Eccored",
+        description: "You Can't Add Empty Tag",
         status: "error",
         duration: 3000,
         isClosable: true,
       })
-    } else {
-      toast({
-        title: "Successfully Updated Post",
-        description: `Post with id ${post.id} Is Updated`,
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      })
-      // navigate('/home');
+
     }
+
+
   };
 
   return (
     <>
       <Popover isLazy>
         <PopoverTrigger>
-        <Button ml={'5'} rounded={'full'} p={'2'}
+          <Button ml={'5'} rounded={'full'} p={'2'}
             bgGradient='linear(to-l, #7928CA, #FF0080)'
             _hover={{
               bgGradient: 'linear(to-r, red.500, yellow.500)',
-            }}><FiSettings /></Button>
+            }}><FiHash /></Button>
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverHeader fontWeight='semibold'>Update Post</PopoverHeader>
+          <PopoverHeader fontWeight='semibold'>add Tag</PopoverHeader>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>
             {/* updating */}
-            <Box as="form" onSubmit={submitHandler} p={'5'}>
-              {/** Form Title */}
-              <FormControl isRequired>
-                <FormLabel>Post Title</FormLabel>
-                <Input value={title} onChange={(e) => setTitle(e.target.value)} />
-              </FormControl>
-              {/** Form Text */}
-              <FormControl isRequired>
-                <FormLabel>Post Text</FormLabel>
-                <Textarea
-                  value={text}
-                  size='sm'
-                  resize="horizontal"
-                  onChange={(e) => setText(e.target.value)}
-                />
-              </FormControl>
-              <Flex py={'1'}>
-                <Button type="submit"
-                  borderRadius='md' display={'block'}
-                  bgGradient='linear(to-l, #7928CA, #FF0080)'
-                  _hover={{
-                    bgGradient: 'linear(to-r, red.500, yellow.500)',
-                  }}>
-                  <FiNavigation />
-                </Button>
-              </Flex>
+            <Box as="form" p={'5'}>
+              {/** Form Tag */}
+
+              <Stack spacing={4}>
+                <FormLabel> {text}</FormLabel>
+                <InputGroup >
+                  <Input value={text} onChange={(e) => setText(e.target.value)} isRequired />
+                  <InputRightAddon alignItems={'center'} onClick={submitHandler}
+                    bgGradient='linear(to-l, #7928CA, #FF0080)'
+                    _hover={{
+                      bgGradient: 'linear(to-r, red.500, yellow.500)',
+                    }} >
+                    <FiNavigation />
+                  </InputRightAddon>
+                </InputGroup>
+              </Stack>
             </Box>
           </PopoverBody>
         </PopoverContent>

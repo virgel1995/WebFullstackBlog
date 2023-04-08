@@ -54,12 +54,12 @@ export default function History(props) {
 			<Box alignItems={'center'} justifyContent={'center'} w={'80%'} ml={'10%'}>
 			<Grid templateColumns='repeat(3, 1fr)'  gap={6} alignItems={"center"} borderLeft="solid 5px #7928CA" borderRight="solid 5px #7928CA"
 				bg="teal" rounded="lg" shadow='md' py="1">
-				<GridItem pl={'50%'}>
+				<GridItem pl={{ sm : '5%' , md: '50%' }}>
 					<Box display="flex">
 						<Loged location={location} />
 					</Box>
 				</GridItem>
-				<GridItem pl={'50%'} > {online ? <IconButton
+				<GridItem pl={{ sm : '50%' , md: '50%' }} > {online ? <IconButton
 					colorScheme='teal'
 					aria-label='Call Segun'
 					size='md'
@@ -70,7 +70,7 @@ export default function History(props) {
 					size='md'
 					icon={<FiWifiOff />}
 				/>}</GridItem>
-				<GridItem pl={'50%'}>
+				<GridItem pl={{ sm : '50%' , md: '50%' }}>
 					{(() => {
 						if (isAdmin) {
 							return (

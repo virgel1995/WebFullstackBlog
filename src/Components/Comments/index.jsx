@@ -9,8 +9,7 @@ import {
 import {
 	AddComment,
 } from '../'
-import { getAllComments } from "@/Store/slice/comments";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import moment from 'moment';
 
 import Userlogo from "@/Assets/img/logo.jpg"

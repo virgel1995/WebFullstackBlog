@@ -1,8 +1,9 @@
-import { createPost, getPosts, updatePost } from "@/Config";
+import { createPost, getPosts, tagAdd, tagUpdate, updatePost } from "@/Config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   posts: [],
+  per_page: 4,
   loading: true,
   updating: false,
   error: null,
@@ -10,11 +11,11 @@ const initialState = {
 
 export const getAllPosts = createAsyncThunk(
   "posts/getPosts",
-  async (rejectWithValue ) => {
+  async (page, { rejectWithValue }) => {
     try {
       const res = await getPosts();
-      // console.log(res.data.data)
-      return res.data.data;
+      // console.log(res.data)
+      return res.data;
     } catch (err) {
       return rejectWithValue({ error: err.message });
     }
@@ -58,27 +59,78 @@ export const updatePostDetails = createAsyncThunk(
   }
 );
 
+export const addTag = createAsyncThunk(
+  // The name of the action
+  "posts/addTag",
+  // The payload creator
+  async ({ id, text }, { rejectWithValue }) => {
+    try {
+      const update = await await tagAdd(id, text);
+      // console.log(update.data)
+      if ((update.data.status = 200)) {
+        const res = await getPosts();
+        // console.log(res.data)
+        return res.data.data;
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue({ error: error.response.data.message });
+      } else {
+        return rejectWithValue({ error: error.message });
+      }
+    }
+  }
+);
+export const updateTag = createAsyncThunk(
+  // The name of the action
+  "posts/updateTag",
+  // The payload creator
+  async ({ blog_id, text, id }, { rejectWithValue }) => {
+    try {
+      const update = await await tagUpdate(blog_id, text, id);
+      // console.log(update.data)
+      if ((update.data.status = 200)) {
+        const res = await getPosts();
+        // console.log(res.data)
+        return res.data.data;
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue({ error: error.response.data.message });
+      } else {
+        return rejectWithValue({ error: error.message });
+      }
+    }
+  }
+);
+
+
 const postSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    addPost(state, action) {
-      state.posts.push(action.payload);
+    handlePrev: (state, action) => {
+      state.per_page = state.per_page - action.payload;
+    },
+    handleNext : (state, action) => {
+      state.per_page = state.per_page + action.payload;
     },
   },
   extraReducers: (builder) => {
+    // get posts data
     builder.addCase(getAllPosts.pending, (state, action) => {
       state.loading = true;
     });
     builder.addCase(getAllPosts.fulfilled, (state, action) => {
       state.loading = false;
-      state.posts = action.payload;
+      state.posts = action.payload.data;
     });
 
     builder.addCase(getAllPosts.rejected, (state, action) => {
       state.loading = true;
       state.error = action.error.message;
     });
+    // add new post
     builder.addCase(addPost.pending, (state, action) => {
       state.loading = true;
     });
@@ -91,7 +143,10 @@ const postSlice = createSlice({
       state.loading = true;
       state.error = action.error.message;
     });
-
+    // update post
+    builder.addCase(updatePostDetails.pending, (state, action) => {
+      state.loading = true;
+    });
     builder.addCase(updatePostDetails.fulfilled, (state, action) => {
       state.loading = false;
       state.posts = action.payload;
@@ -101,9 +156,36 @@ const postSlice = createSlice({
       state.loading = true;
       state.error = action.error.message;
     });
+// add tag
+    builder.addCase(addTag.pending, (state, action) => {
+      // state.loading = true;
+    });
+    builder.addCase(addTag.fulfilled, (state, action) => {
+      state.loading = false;
+      state.posts = action.payload;
+    });
+
+    builder.addCase(addTag.rejected, (state, action) => {
+      state.loading = true;
+      state.error = action.error.message;
+    });
+
+// update tag
+    builder.addCase(updateTag.pending, (state, action) => {
+      // state.loading = true;
+    });
+    builder.addCase(updateTag.fulfilled, (state, action) => {
+      state.loading = false;
+      state.posts = action.payload;
+    });
+
+    builder.addCase(updateTag.rejected, (state, action) => {
+      state.loading = true;
+      state.error = action.error.message;
+    });
   },
 });
 
-// export const { addPost } = postsSlice.actions
+export const { handlePrev, handleNext } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -26,7 +26,6 @@ export const addComment = createAsyncThunk(
   async ({ id, comment }, { dispatch, rejectWithValue }) => {
     try {
       const res = await createComment(id, comment);
-      
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

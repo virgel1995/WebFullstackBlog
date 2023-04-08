@@ -121,15 +121,3 @@ export default function PostCreate() {
   );
 }
 
-
-/** 
-
-      <Button onClick={""} 
-      borderRadius='md'
-      bgGradient='linear(to-l, #7928CA, #FF0080)'
-      _hover={{
-        bgGradient: 'linear(to-r, red.500, yellow.500)',
-      }}>
-        submit!
-      </Button>
-*/

@@ -8,3 +8,4 @@ export { default as PostScreen } from "./PostScreen"
 export {default as PostUpdate } from "./PostUpdate"
 export { default as Comments } from "./Comments"
 export { default as AddTag } from "./AddTag"
+export { default as Tags } from './Tags'

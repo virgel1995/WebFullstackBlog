@@ -3,7 +3,15 @@ import {
 	Link,
 	useNavigate
 } from "react-router-dom";
-import { FiMoon, FiSun, FiMenu, FiShare, FiUserPlus, FiUser, FiCloudOff } from "react-icons/fi";
+import {
+	FiMoon,
+	FiSun,
+	FiMenu,
+	FiShare,
+	FiUserPlus,
+	FiUser,
+	FiCloudOff
+} from "react-icons/fi";
 import {
 	Box,
 	Flex,
@@ -13,14 +21,15 @@ import {
 	useColorMode,
 } from '@chakra-ui/react';
 import { Avatar, Logo } from "../"
-import { 
+import {
 	getUserDetails,
-	 removeToken } from "@/Config"
+	removeToken
+} from "@/Config"
 import { useDispatch, useSelector } from "react-redux";
-import { 
+import {
 	handleLogout,
-	 setAdmin, setUser
-	 } from "@/Store/slice/auth";
+	setAdmin, setUser
+} from "@/Store/slice/auth";
 import logo from "@/Assets/img/logo.jpg"
 
 export default function Navbar(props) {
@@ -42,7 +51,11 @@ export default function Navbar(props) {
 				});
 			});
 		}
+		return () => {
+			console.log('Navbar hit')
+		}
 	}, [])
+
 	return (
 		<>
 			<Box bg={useColorModeValue('gray.100', 'gray.900')} px={"4"}>

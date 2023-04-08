@@ -105,6 +105,10 @@ export const getComments = (Blog_id) => {
   });
 };
 
+export const getTags = (blog_id) => {
+  return Axios.get(`${API}/Blogs/Tags/getList?blog_id=${blog_id}`);
+};
+
 export const tagAdd = (blog_id, tag) => {
   return Axios.post(
     API + `/Blogs/Tags/updateOrCreate`,
