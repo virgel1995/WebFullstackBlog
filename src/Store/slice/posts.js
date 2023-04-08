@@ -28,6 +28,7 @@ export const addPost = createAsyncThunk(
   async ({ title, text }, { rejectWithValue }) => {
     try {
       const res = await createPost(title, text);
+      // console.log(res.data)
       return res.data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -47,7 +48,7 @@ export const updatePostDetails = createAsyncThunk(
       const update = await updatePost(id, title, text);
       if ((update.data.status = 200)) {
         const res = await getPosts();
-        return res.data.data;
+        return res.data;
       }
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -70,7 +71,7 @@ export const addTag = createAsyncThunk(
       if ((update.data.status = 200)) {
         const res = await getPosts();
         // console.log(res.data)
-        return res.data.data;
+        return res.data;
       }
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -92,7 +93,7 @@ export const updateTag = createAsyncThunk(
       if ((update.data.status = 200)) {
         const res = await getPosts();
         // console.log(res.data)
-        return res.data.data;
+        return res.data;
       }
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -123,7 +124,7 @@ const postSlice = createSlice({
     });
     builder.addCase(getAllPosts.fulfilled, (state, action) => {
       state.loading = false;
-      state.posts = action.payload.data;
+      state.posts = action.payload;
     });
 
     builder.addCase(getAllPosts.rejected, (state, action) => {
@@ -132,10 +133,10 @@ const postSlice = createSlice({
     });
     // add new post
     builder.addCase(addPost.pending, (state, action) => {
-      state.loading = true;
+      // state.loading = true;
     });
     builder.addCase(addPost.fulfilled, (state, action) => {
-      state.loading = false;
+      // state.loading = false;
       state.posts.push(action.payload);
     });
 

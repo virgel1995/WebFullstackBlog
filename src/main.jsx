@@ -19,6 +19,7 @@ import {
 	Profile
 } from "./Pages"
 import "./assets/css/index.css"
+
 import { theme } from "./Config"
 import store from './Store';
 import { Provider } from 'react-redux';

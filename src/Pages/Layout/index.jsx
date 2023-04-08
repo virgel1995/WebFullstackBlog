@@ -28,8 +28,10 @@ export default function Layout({ children }) {
 			dispatch(setAuthToken(getToken()))
 		}
 		dispatch(getAllPosts())
+		//  to clear Effect
+
 		return () => {
-			console.log('layout Hit')
+			// console.log('layout Hit')
 		}
 	}, [])
 	return (

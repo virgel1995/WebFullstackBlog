@@ -17,9 +17,8 @@ import {
 	PostUpdate, Tags,
 } from '../'
 
-
 import { useDispatch, useSelector } from "react-redux"
-import { handleNext, handlePrev} from "@/Store/slice/posts"
+import { handleNext, handlePrev } from "@/Store/slice/posts"
 
 export default function Posts(props) {
 
@@ -173,6 +172,7 @@ export default function Posts(props) {
 	}
 
 
+
 	return (
 		<>
 			{loading ? <Loader /> :
@@ -270,7 +270,6 @@ export default function Posts(props) {
 							}} onClick={handlePrevPage}>
 							Hide Less
 						</Button>}
-
 					</SimpleGrid>
 				</Box >
 			}

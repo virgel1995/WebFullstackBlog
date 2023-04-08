@@ -51,8 +51,9 @@ export default function Navbar(props) {
 				});
 			});
 		}
+		//  to clear Effect
 		return () => {
-			console.log('Navbar hit')
+			// console.log('Navbar hit')
 		}
 	}, [])
 
